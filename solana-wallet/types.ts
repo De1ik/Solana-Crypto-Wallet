@@ -1,5 +1,8 @@
-// types.ts
+export type ChainType = 'solana' | 'ethereum';
+
 export type RootStackParamList = {
-  CreateWallet: undefined;
+  Wallet: undefined;
+  Send: { chain: ChainType };
   ImportWallet: undefined;
+  CreateWallet: undefined;
 };
