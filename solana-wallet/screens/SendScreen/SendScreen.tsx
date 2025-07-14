@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator, Alert } from 'react-native';
-import { KeyManager } from '../services/KeyManager';
-import { NetworkManager } from '../services/NetworkManager';
+import { KeyManager } from '../../services/KeyManager';
+import { NetworkManager } from '../../services/NetworkManager';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
-import { RootStackParamList, ChainType } from '../types';
+import { RootStackParamList, ChainType } from '../../types';
 
 const SendScreen = () => {
   const navigation = useNavigation();
@@ -30,10 +30,19 @@ const SendScreen = () => {
         Alert.alert('Success', `Solana Tx Signature:\n${sig}`);
       } else if (chain === 'ethereum') {
         const ethWallet = NetworkManager.getProvider('ethereum').getWalletFromMnemonic(mnemonic);
+        // Подготовка строки amount с заменой запятой на точку
+        const amountStr = amount.replace(',', '.').trim();
+
+        // Проверка, что введена валидная сумма
+        if (!/^\d+(\.\d+)?$/.test(amountStr)) {
+          Alert.alert('Error', 'Enter valid amount. Use point as decimal separator.');
+          setLoading(false);
+          return;
+        }
         const hash = await NetworkManager.getProvider('ethereum').sendTransaction({
           fromWallet: ethWallet,
           to: toAddress,
-          amount: Number(amount),
+          amount: amountStr,
         });
         Alert.alert('Success', `Ethereum Tx Hash:\n${hash}`);
       }

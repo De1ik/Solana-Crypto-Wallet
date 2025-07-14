@@ -21,4 +21,18 @@ export class NetworkManager {
         return SolanaProvider;
     }
   }
+
+  static async getTransactionsPaginated(
+    address: string,
+    chain: ChainType,
+    param1: number,                // Ethereum: page, Solana: limit
+    param2?: number | string      // Ethereum: limit, Solana: before
+  ) {
+    if (chain === 'solana') {
+      return SolanaProvider.getTransactionsPaginated(address, param1, param2 as (string | undefined));
+    } else if (chain === 'ethereum') {
+      return EthereumProvider.getTransactionsPaginated(address, param1, param2 as number);
+    }
+    return [];
+  }
 }
