@@ -64,6 +64,7 @@ const WalletScreen = () => {
           <Text selectable style={s.balance}>{address}</Text>
           <Text style={s.balance}>Balance: {balance !== null ? balance : '--'} {activeChain === 'solana' ? 'SOL' : 'ETH'}</Text>
           <Button title="Send" onPress={() => navigation.navigate('Send', { chain: activeChain })} />
+          <Button title="Send By Code" onPress={() => navigation.navigate('SendByCode')} />
           <Text style={s.subtitle}>Latest transactions:</Text>
           {transactions.length === 0 && <Text>No transactions found.</Text>}
           {transactions.map((tx, idx) => (
@@ -87,6 +88,7 @@ const WalletScreen = () => {
         </>
       )}
       <Button title="Reload" onPress={loadWallet} />
+      <Button title="Get By Code" onPress={() => navigation.navigate('ReceiveByCode', { chain: activeChain, address })} />
       <Button title="Logout" color="red" onPress={async () => {
         await KeyManager.clearMnemonic();
         navigation.navigate('CreateWallet');

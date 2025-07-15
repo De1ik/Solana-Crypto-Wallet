@@ -1,14 +1,17 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import WalletScreen from './screens/WalletScreen/WalletScreen';
 import SendScreen from './screens/SendScreen/SendScreen';
 import ImportWalletScreen from './screens/ImportWalletScreen/ImportWalletScreen';
 import CreateWalletScreen from './screens/CreateWalletScreen/CreateWalletScreen';
 import AllTxScreen from './screens/AllTxScreen/AllTxScreen';
 import TxDetailsScreen from './screens/TxDetailsScreen/TxDetailsScreen';
-import { RootStackParamList } from './types';
+import ReceiveByCodeScreen from './screens/ReceiveByCodeScreen/ReceiveByCodeScreen';
+import SendByCodeScreen from './screens/SendByCodeScreen/SendByCodeScreen';
 
+import { RootStackParamList } from './types';
 import { ThemeProvider } from './theme/ThemeProvider';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -24,6 +27,8 @@ export default function App() {
           <Stack.Screen name="Send" component={SendScreen} options={{ title: 'Send' }} />
           <Stack.Screen name="AllTx" component={AllTxScreen} />
           <Stack.Screen name="TxDetails" component={TxDetailsScreen} options={{ title: 'Transaction Details' }} />
+          <Stack.Screen name="ReceiveByCode" component={ReceiveByCodeScreen} options={{ title: 'GenerateCode' }} />
+          <Stack.Screen name="SendByCode" component={SendByCodeScreen} options={{ title: 'Send by Code/QR' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

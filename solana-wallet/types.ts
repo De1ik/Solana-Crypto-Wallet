@@ -7,4 +7,6 @@ export type RootStackParamList = {
   CreateWallet: undefined;
   TxDetails: { tx: any; chain: ChainType };
   AllTx: { chain: ChainType; address: string };
+  ReceiveByCode: { chain: ChainType; address: string };
+  SendByCode: undefined;
 };
